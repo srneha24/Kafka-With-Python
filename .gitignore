@@ -1,0 +1,15 @@
+# Virtual Environments
+env/
+
+# Cahce
+**pycache**/
+
+# Compiled Python Files
+_.pyc
+_.pyo
+
+# Environment Settings
+.env
+
+# IDE
+.vscode
