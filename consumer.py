@@ -37,10 +37,6 @@ class DBClient:
         self.conn.close()
 
 
-def deserialize(message):
-    return loads(message.decode('utf-8'))
-
-
 class KafkaConsumerClient:
     consumer: KafkaConsumer = None
 
@@ -51,8 +47,11 @@ class KafkaConsumerClient:
                 f"{os.getenv('KAFKA_HOST')}:{os.getenv('KAFKA_PORT')}"],
             auto_offset_reset='earliest',
             enable_auto_commit=True,
-            value_deserializer=deserialize
+            value_deserializer=self.deserialize
         )
+
+    def deserialize(self, message):
+        return loads(message.decode('utf-8'))
 
 
 def main():

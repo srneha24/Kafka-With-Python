@@ -8,10 +8,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def serializer(message):
-    return dumps(message).encode('utf-8')
-
-
 class KafkaProducerClient:
     producer: KafkaProducer = None
 
@@ -19,8 +15,11 @@ class KafkaProducerClient:
         self.producer = KafkaProducer(
             bootstrap_servers=[
                 f"{os.getenv('KAFKA_HOST')}:{os.getenv('KAFKA_PORT')}"],
-            value_serializer=serializer
+            value_serializer=self.serializer
         )
+
+    def serializer(self, message):
+        return dumps(message).encode('utf-8')
 
     def produce_event(self, topic_name, message):
         result = self.producer.send(
