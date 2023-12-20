@@ -5,6 +5,9 @@ from json import loads
 from dotenv import load_dotenv
 
 
+load_dotenv()
+
+
 class DBClient:
     conn = None
 
@@ -12,8 +15,6 @@ class DBClient:
         self.connect()
 
     def connect(self):
-        load_dotenv()
-
         self.conn = psycopg2.connect(
             database=os.getenv('DATABASE_NAME'),
             host=os.getenv('DATABASE_HOST'),
@@ -46,7 +47,8 @@ class KafkaConsumerClient:
     def __init__(self) -> None:
         self.consumer = KafkaConsumer(
             'testevent',
-            bootstrap_servers=['localhost : 9092'],
+            bootstrap_servers=[
+                f"{os.getenv('KAFKA_HOST')}:{os.getenv('KAFKA_PORT')}"],
             auto_offset_reset='earliest',
             enable_auto_commit=True,
             value_deserializer=deserialize

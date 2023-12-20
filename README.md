@@ -25,6 +25,11 @@
 2. Set up a .env file on project root with the following values -
 
    ```
+   # KAFKA
+   KAFKA_HOST=kafka-host
+   KAFKA_PORT=kafka-port
+
+   # DATABASE CONFIG
    DATABASE_NAME=database-name
    DATABASE_HOST=database-host
    DATABASE_PORT=database-port

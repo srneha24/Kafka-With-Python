@@ -1,6 +1,11 @@
+import os
 import time
 from kafka import KafkaProducer
 from json import dumps
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 
 def serializer(message):
@@ -12,7 +17,8 @@ class KafkaProducerClient:
 
     def __init__(self) -> None:
         self.producer = KafkaProducer(
-            bootstrap_servers=['localhost:9092'],
+            bootstrap_servers=[
+                f"{os.getenv('KAFKA_HOST')}:{os.getenv('KAFKA_PORT')}"],
             value_serializer=serializer
         )
 
