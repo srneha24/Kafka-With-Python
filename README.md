@@ -8,7 +8,19 @@
 
 ## Running The Project
 
-1. Ensure Zookeeper and Kafka are running in the background.
+1. Create the database table using the following SQL query -
+
+   ```
+   CREATE TABLE kafka_messages (
+      id SERIAL,
+      topic_name VARCHAR(50) NOT NULL,
+      message VARCHAR(200) NOT NULL,
+      created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+      PRIMARY KEY (id)
+   );
+   ```
+
+2. Ensure Zookeeper and Kafka are running in the background.
 
    #### Running Zookeeper On Windows
 
@@ -22,7 +34,7 @@
    .\bin\windows\kafka-server-start.bat .\config\server.properties
    ```
 
-2. Set up a .env file on project root with the following values -
+3. Set up a .env file on project root with the following values -
 
    ```
    # KAFKA
@@ -37,13 +49,13 @@
    DATABASE_PASSWORD=database-password
    ```
 
-3. Open a terminal and run `producer.py` using the following command -
+4. Open a terminal and run `producer.py` using the following command -
 
    ```
    python producer.py
    ```
 
-4. Open another terminal and run `consumer.py` using the followiing command -
+5. Open another terminal and run `consumer.py` using the followiing command -
 
    ```
    python consumer.py
